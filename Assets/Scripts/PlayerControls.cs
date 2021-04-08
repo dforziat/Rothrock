@@ -6,6 +6,7 @@ public class PlayerControls : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float moveSpeed;
+    [SerializeField] float runSpeed;
 
     [Header("Gravity")]
     float grav = -18f;
@@ -43,12 +44,23 @@ public class PlayerControls : MonoBehaviour
 
     void Movement()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 dir = transform.right * x + transform.forward * z;
-
-        controller.Move(dir * moveSpeed *Time.deltaTime);
+        //this can be done better + need to make it case running doesnt work while ADS, ADS needs slow walk
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("Running");
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            Vector3 dir = transform.right * x + transform.forward * z;
+            controller.Move(dir * runSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Debug.Log("Walking");
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            Vector3 dir = transform.right * x + transform.forward * z;
+            controller.Move(dir * moveSpeed * Time.deltaTime);
+        }
 
     }
 
