@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage = 10f;
-    public float range = 100f;
+    float damage = 1f;
+    float range = 100f;
 
-    public Camera cam;
+    [SerializeField] Camera cam;
 
     // Update is called once per frame
     void Update()
@@ -17,7 +17,6 @@ public class Gun : MonoBehaviour
             Shoot();
         }
     }
-
 
 
     void Shoot()

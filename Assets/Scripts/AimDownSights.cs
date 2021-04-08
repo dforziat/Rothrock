@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AimDownSights : MonoBehaviour
 {
-    public Vector3 aimDownSight;
-    public Vector3 hipFire;
+    [SerializeField] Vector3 aimDownSight;
+    [SerializeField] Vector3 hipFire;
     float aimSpeed = 20;
 
     // Update is called once per frame
@@ -14,7 +14,6 @@ public class AimDownSights : MonoBehaviour
         if(Input.GetMouseButton(1))
         {
             transform.localPosition = Vector3.Slerp(transform.localPosition, aimDownSight, aimSpeed * Time.deltaTime);
-            //transform.localPosition = aimDownSight;
         }
         else
         {

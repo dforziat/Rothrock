@@ -6,7 +6,6 @@ public class PlayerControls : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float moveSpeed;
-    [SerializeField] float runSpeed;
 
     [Header("Gravity")]
     float grav = -18f;
@@ -40,28 +39,23 @@ public class PlayerControls : MonoBehaviour
         Gravity();
         CamLook();
         Movement();
+        
     }
 
     void Movement()
     {
-        //this can be done better + need to make it case running doesnt work while ADS, ADS needs slow walk
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Debug.Log("Running");
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-            Vector3 dir = transform.right * x + transform.forward * z;
-            controller.Move(dir * runSpeed * Time.deltaTime);
-        }
+        if(Input.GetMouseButton(1))
+            moveSpeed = 0f;
+        else if (Input.GetKey(KeyCode.LeftShift))
+            moveSpeed = 20f;
         else
-        {
-            Debug.Log("Walking");
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-            Vector3 dir = transform.right * x + transform.forward * z;
-            controller.Move(dir * moveSpeed * Time.deltaTime);
-        }
+            moveSpeed = 5f;
 
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 dir = (transform.right * x + transform.forward * z);
+        //need to normalize the vector3 but curently it makes you slide too long if you it
+        controller.Move(dir * moveSpeed * Time.deltaTime);
     }
 
     void CamLook()
