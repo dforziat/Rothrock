@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed;
+    float moveSpeed = 5;
 
     [Header("Gravity")]
     float grav = -18f;
@@ -23,6 +23,8 @@ public class PlayerControls : MonoBehaviour
     Camera cam;
     Vector3 vel;
     [SerializeField] CharacterController controller;
+    public GameObject flashlight;
+    bool flashlightToggle = false;
 
 
     void Awake()
@@ -32,6 +34,9 @@ public class PlayerControls : MonoBehaviour
 
         //disable cursor
         Cursor.lockState = CursorLockMode.Locked;
+
+        //starts game with flashlight off
+        flashlight.SetActive(flashlightToggle);
     }
 
     void Update()
@@ -39,6 +44,7 @@ public class PlayerControls : MonoBehaviour
         Gravity();
         CamLook();
         Movement();
+        Flashlight();
         
     }
 
@@ -78,7 +84,15 @@ public class PlayerControls : MonoBehaviour
             vel.y = -2f;
     }
 
-
+    void Flashlight()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            flashlightToggle = !flashlightToggle;
+            flashlight.SetActive(flashlightToggle);
+            // Add a cooldown speed here 
+        }
+    }
 
 
 }
