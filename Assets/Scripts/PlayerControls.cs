@@ -57,9 +57,9 @@ public class PlayerControls : MonoBehaviour
         else
             moveSpeed = 5f;
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 dir = (transform.right * x + transform.forward * z);
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+        Vector3 dir = (transform.right * x + transform.forward * z).normalized;
         //need to normalize the vector3 but curently it makes you slide too long if you it
         controller.Move(dir * moveSpeed * Time.deltaTime);
     }

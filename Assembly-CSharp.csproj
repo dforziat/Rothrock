@@ -58,8 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AimDownSights.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Gun.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
