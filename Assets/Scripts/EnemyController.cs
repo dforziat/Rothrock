@@ -20,13 +20,14 @@ public class EnemyController : MonoBehaviour
     // TODO: add "weapon" = hands essentially
 
     private GameObject target;
+    private NavMeshAgent navMeshAgent; 
 
     void Start()
     {
         // get the compnents
         // weapon = GetComponent<Weapon>();
         target = GameObject.FindWithTag("Player");
-
+        navMeshAgent = GetComponent<NavMeshAgent>();
         InvokeRepeating("UpdatePath", 0.0f, .5f);
     }
 
@@ -55,14 +56,7 @@ public class EnemyController : MonoBehaviour
 
     void ChaseTarget()
     {
-        if (path.Count == 0)
-            return;
-
-        //move towards closest path
-        transform.position = Vector3.MoveTowards(transform.position, path[0] + new Vector3(0, yPathOffset, 0), moveSpeed * Time.deltaTime);
-
-        if (transform.position == path[0] + new Vector3(0, yPathOffset, 0))
-            path.RemoveAt(0);
+        navMeshAgent.SetDestination(target.transform.position);
     }
 
 

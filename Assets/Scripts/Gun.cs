@@ -6,15 +6,21 @@ public class Gun : MonoBehaviour
 {
     float damage = 1f;
     float range = 100f;
+    int maxAmmoCapacity = 6;
+    int currentAmmo = 6;
 
     [SerializeField] Camera cam;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && currentAmmo > 0)
         {
             Shoot();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
         }
     }
 
@@ -28,5 +34,11 @@ public class Gun : MonoBehaviour
             Debug.Log("shoot");
             Debug.Log(hit.transform.name);
         }
+        currentAmmo--;
+    }
+
+    void Reload()
+    {
+        currentAmmo = maxAmmoCapacity;
     }
 }
