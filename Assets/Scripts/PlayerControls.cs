@@ -21,22 +21,28 @@ public class PlayerControls : MonoBehaviour
     float rotX;
 
     Camera cam;
+    Gun gun;
+
     Vector3 vel;
     [SerializeField] CharacterController controller;
     public GameObject flashlight;
     bool flashlightToggle = false;
 
-
     void Awake()
     {
-        // get the camera
+        // get the components
         cam = Camera.main;
+        gun = GetComponent<Gun>();
 
         //disable cursor
         Cursor.lockState = CursorLockMode.Locked;
 
         //starts game with flashlight off
         flashlight.SetActive(flashlightToggle);
+
+        //initialize UI
+        GameUI.instance.UpdateAmmoText(gun.currentAmmo, gun.maxAmmoCapacity);
+
     }
 
     void Update()
@@ -60,7 +66,6 @@ public class PlayerControls : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
         Vector3 dir = (transform.right * x + transform.forward * z).normalized;
-        //need to normalize the vector3 but curently it makes you slide too long if you it
         controller.Move(dir * moveSpeed * Time.deltaTime);
     }
 

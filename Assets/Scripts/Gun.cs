@@ -6,22 +6,26 @@ public class Gun : MonoBehaviour
 {
     float damage = 1f;
     float range = 100f;
-    int maxAmmoCapacity = 6;
-    int currentAmmo = 6;
+    public int maxAmmoCapacity = 6;
+    public int currentAmmo = 6;
 
     [SerializeField] Camera cam;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && currentAmmo > 0)
+        // Add a check for fireSpeed here as well, so player doesn't blast as a fast as they can click
+        if (Input.GetButtonDown("Fire1") && currentAmmo > 0)
         {
             Shoot();
+            
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
+            
             Reload();
         }
+        
     }
 
 
@@ -35,10 +39,13 @@ public class Gun : MonoBehaviour
             Debug.Log(hit.transform.name);
         }
         currentAmmo--;
+        GameUI.instance.UpdateAmmoText(currentAmmo, maxAmmoCapacity);
+
     }
 
     void Reload()
     {
         currentAmmo = maxAmmoCapacity;
+        GameUI.instance.UpdateAmmoText(currentAmmo, maxAmmoCapacity);
     }
 }
