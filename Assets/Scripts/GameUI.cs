@@ -9,6 +9,7 @@ public class GameUI : MonoBehaviour
 
     [Header("HUD")]
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI healthText;
 
     public static GameUI instance;
 
@@ -20,6 +21,11 @@ public class GameUI : MonoBehaviour
     public void UpdateAmmoText(int currentAmmo, int maxAmmoCapacity)
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmoCapacity;
+    }
+
+    public void UpdateHealthText(int currentHp, int maxHp)
+    {
+        healthText.text = "HP: " + currentHp + "/" + maxHp;
     }
 
 }

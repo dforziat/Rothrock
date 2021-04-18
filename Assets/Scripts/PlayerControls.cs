@@ -20,6 +20,10 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float minLookX;
     float rotX;
 
+    [Header("Stats")]
+     int curHp = 100;
+     int maxHp = 100;
+
     Camera cam;
     Gun gun;
 
@@ -42,7 +46,7 @@ public class PlayerControls : MonoBehaviour
 
         //initialize UI
         GameUI.instance.UpdateAmmoText(gun.currentAmmo, gun.maxAmmoCapacity);
-
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
     }
 
     void Update()
@@ -97,6 +101,27 @@ public class PlayerControls : MonoBehaviour
             flashlight.SetActive(flashlightToggle);
             // Add a cooldown speed here 
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        curHp -= damage;
+        if (curHp <= 0)
+            Debug.Log("dead");
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (curHp + healAmount > maxHp)
+        {
+            curHp = maxHp;
+        }
+        else
+        {
+            curHp += healAmount;
+        }
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
     }
 
 
