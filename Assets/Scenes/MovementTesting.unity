@@ -402,6 +402,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimDownSight: {x: -0.405, y: 0.137, z: 0}
   hipFire: {x: 0, y: 0, z: 0}
+--- !u!1 &213162010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7355713013926475229, guid: 82a76256a42024049964a0c8b9bb380f, type: 3}
+  m_PrefabInstance: {fileID: 1214239604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &213162015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213162010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a60fafb731133d4a953d3623ffb5688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &258349215
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +775,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146b3bd5290f30b438234eb825283bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthKits: 0
+  healthKitsMax: 3
+  handgunAmmo: 10
+  handgunAmmoMax: 20
   ammoText: {fileID: 2101563518}
   healthText: {fileID: 1015622657}
 --- !u!1 &528683216
@@ -1619,6 +1640,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261585399519066648, guid: 82a76256a42024049964a0c8b9bb380f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5787098976114755534, guid: 82a76256a42024049964a0c8b9bb380f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1808,6 +1833,7 @@ GameObject:
   - component: {fileID: 1466889159}
   - component: {fileID: 1466889161}
   - component: {fileID: 1466889162}
+  - component: {fileID: 1466889163}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1886,6 +1912,21 @@ MonoBehaviour:
   maxAmmoCapacity: 6
   currentAmmo: 6
   cam: {fileID: 1268638771}
+--- !u!114 &1466889163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466889158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce3f99913abb8f42a2fdc89950368af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthKits: 0
+  healthKitsMax: 3
+  handgunAmmo: 10
 --- !u!1 &2101563517
 GameObject:
   m_ObjectHideFlags: 0

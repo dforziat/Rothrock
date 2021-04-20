@@ -6,7 +6,7 @@ using TMPro;
 public class GameUI : MonoBehaviour
 {
     //This is where inventory stuff is stored as well as UI representation of it
-
+ 
     [Header("HUD")]
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI healthText;
