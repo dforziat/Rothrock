@@ -238,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &41831617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,10 +775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146b3bd5290f30b438234eb825283bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthKits: 0
-  healthKitsMax: 3
-  handgunAmmo: 10
-  handgunAmmoMax: 20
   ammoText: {fileID: 2101563518}
   healthText: {fileID: 1015622657}
 --- !u!1 &528683216
@@ -1717,6 +1713,7 @@ GameObject:
   - component: {fileID: 1268638772}
   - component: {fileID: 1268638771}
   - component: {fileID: 1268638770}
+  - component: {fileID: 1268638773}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1791,6 +1788,21 @@ Transform:
   m_Father: {fileID: 1466889160}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1268638773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268638769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa24151b7eacb04382fb43d68ee5c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobbingSpeed: 10
+  bobbingAmount: 0.07
+  controller: {fileID: 1466889161}
 --- !u!1 &1291033442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1909,7 @@ MonoBehaviour:
   minLookX: -80
   controller: {fileID: 1466889159}
   flashlight: {fileID: 608115823}
+  dir: {x: 0, y: 0, z: 0}
 --- !u!114 &1466889162
 MonoBehaviour:
   m_ObjectHideFlags: 0

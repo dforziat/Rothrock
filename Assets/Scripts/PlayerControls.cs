@@ -32,6 +32,8 @@ public class PlayerControls : MonoBehaviour
     public GameObject flashlight;
     bool flashlightToggle = false;
 
+    public Vector3 dir;
+
     void Awake()
     {
         // get the components
@@ -55,7 +57,7 @@ public class PlayerControls : MonoBehaviour
         CamLook();
         Movement();
         Flashlight();
-        
+            
     }
 
     void Movement()
