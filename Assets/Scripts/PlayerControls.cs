@@ -21,11 +21,12 @@ public class PlayerControls : MonoBehaviour
     float rotX;
 
     [Header("Stats")]
-     int curHp = 100;
-     int maxHp = 100;
+    int curHp = 50;
+    int maxHp = 100;
 
     Camera cam;
     Gun gun;
+    Inventory inventory;
 
     Vector3 vel;
     [SerializeField] CharacterController controller;
@@ -39,6 +40,7 @@ public class PlayerControls : MonoBehaviour
         // get the components
         cam = Camera.main;
         gun = GetComponent<Gun>();
+        inventory = GetComponent<Inventory>();
 
         //disable cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -57,12 +59,12 @@ public class PlayerControls : MonoBehaviour
         CamLook();
         Movement();
         Flashlight();
-            
+        useHealthKit();
     }
 
     void Movement()
     {
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
             moveSpeed = 0f;
         else if (Input.GetKey(KeyCode.LeftShift))
             moveSpeed = 20f;
@@ -124,6 +126,23 @@ public class PlayerControls : MonoBehaviour
             curHp += healAmount;
         }
         GameUI.instance.UpdateHealthText(curHp, maxHp);
+    }
+
+    public void useHealthKit()
+    {
+        if (Input.GetKeyDown(KeyCode.H)){
+            inventory = GetComponent<Inventory>(); //Refresh inventory
+            if (inventory.getHealthKits() > 0)
+            {
+                Heal(inventory.healthPickup.healAmount);
+                inventory.setHealthKits(inventory.getHealthKits() - 1);
+                GameUI.instance.UpdateHealthKitText(inventory.getHealthKits(), inventory.getHealthKitsMax());
+            }
+            else
+            {
+                Debug.Log("No health kits");
+            }
+        }
     }
 
 
