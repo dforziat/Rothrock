@@ -23,6 +23,14 @@ public class Inventory : MonoBehaviour
         
     }
 
+    public void increaseHealthKits(int numHealthKits)
+    {
+        if (healthKits < healthKitsMax)
+        {
+            this.healthKits += numHealthKits;
+        }
+    }
+
     public int getHealthKits()
     {
         return healthKits;
@@ -42,5 +50,30 @@ public class Inventory : MonoBehaviour
     {
         this.healthKitsMax = healthKitsMax;
     }
+
+  
+    public void increaseHandgunAmmo(int pickupHandgunAmmo)
+    {
+        if(pickupHandgunAmmo + handgunAmmo > handgunAmmoMax) //only pickup ammo if there is some space for a partial amount
+        {
+            this.handgunAmmo = handgunAmmoMax;
+        }else{
+            this.handgunAmmo += pickupHandgunAmmo;
+        }
+    }
+
+    public bool isHandgunAmmoFull()
+    {
+        if(handgunAmmo == handgunAmmoMax)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 
 }
