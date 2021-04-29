@@ -34,4 +34,6 @@ public class GameUI : MonoBehaviour
         healthKitText.text = "HealthKits: " + currentHealthKits + "/" + maxHealthKits;
     }
 
+   
+
 }

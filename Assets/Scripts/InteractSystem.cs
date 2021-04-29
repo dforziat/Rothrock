@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InteractSystem : MonoBehaviour
 {
@@ -11,10 +12,10 @@ public class InteractSystem : MonoBehaviour
     [SerializeField] KeyCode interactKey = KeyCode.E;
 
     [SerializeField] private Image crosshair = null;
-    bool isCrosshairActive;
-    bool doOnce;
+    [SerializeField] TextMeshProUGUI interactText;
 
     PickupController raycastedObj;
+    HealthPickup healthPickup;
 
     const string interactableTag = "InteractiveObject";
 
@@ -30,40 +31,39 @@ public class InteractSystem : MonoBehaviour
             //maybe use different tags for diff interact objs to tell which to do? could scale well
             if (hit.collider.CompareTag(interactableTag))
             {
-                if(!doOnce)
-                {
-                    raycastedObj = hit.collider.gameObject.GetComponent<PickupController>();
-                    CrosshairChange(true);
-                }
-                isCrosshairActive = true;
-                doOnce = true;
+                // raycastedObj = hit.collider.gameObject.GetComponent<PickupController>();
+                 healthPickup = hit.collider.gameObject.GetComponent<HealthPickup>();
+                 InteractPopUp(true);
 
                 if(Input.GetKeyDown(interactKey))
                 {
                     //calls a method from another script
-                    raycastedObj.InteractMethod();
+                   // raycastedObj.InteractMethod();
+                    healthPickup.HealPickup();
+
+
                 }
             }
         }
 
         else
-        {
-            if(isCrosshairActive)
-            {
-                CrosshairChange(false);
-                doOnce = false;
-            }
-        }
+            InteractPopUp(false);
+         
     }
-    void CrosshairChange(bool on)
+
+
+    void InteractPopUp(bool on)
     {
-        if (on && !doOnce)
+        if (on)
         {
-            crosshair.color = Color.red;
+            interactText.gameObject.SetActive(true);
         }
         else
         {
-            crosshair.color = Color.white;
+            interactText.gameObject.SetActive(false);
         }
     }
+
 }
+
+
