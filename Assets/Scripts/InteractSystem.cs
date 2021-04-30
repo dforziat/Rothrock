@@ -10,14 +10,14 @@ public class InteractSystem : MonoBehaviour
     [SerializeField] LayerMask InteractObjs;
     [SerializeField] string excludeLayerName = null;
     [SerializeField] KeyCode interactKey = KeyCode.E;
-
-    [SerializeField] private Image crosshair = null;
     [SerializeField] TextMeshProUGUI interactText;
 
-    PickupController raycastedObj;
+
     HealthPickup healthPickup;
 
-    const string interactableTag = "InteractiveObject";
+    const string hpTag = "InteractableHealthKit";
+    const string ammoTag = "InteractableAmmo";
+
 
     private void Update()
     {
@@ -28,21 +28,19 @@ public class InteractSystem : MonoBehaviour
 
         if(Physics.Raycast(transform.position, fwd, out hit, rayLength, mask))
         {
-            //maybe use different tags for diff interact objs to tell which to do? could scale well
-            if (hit.collider.CompareTag(interactableTag))
+            //copy and replace tag + method to scale
+            if (hit.collider.CompareTag(hpTag))
             {
-                // raycastedObj = hit.collider.gameObject.GetComponent<PickupController>();
-                 healthPickup = hit.collider.gameObject.GetComponent<HealthPickup>();
-                 InteractPopUp(true);
+                healthPickup = hit.collider.gameObject.GetComponent<HealthPickup>();
+                //interactText.text = "CHANGE TEXT IF NEEDDED";
+                InteractPopUp(true);
 
                 if(Input.GetKeyDown(interactKey))
-                {
-                    //calls a method from another script
-                   // raycastedObj.InteractMethod();
                     healthPickup.HealPickup();
 
 
-                }
+
+
             }
         }
 
