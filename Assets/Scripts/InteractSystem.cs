@@ -14,6 +14,7 @@ public class InteractSystem : MonoBehaviour
 
 
     HealthPickup healthPickup;
+    HandgunAmmoPickup handgunAmmoPickup;
 
     const string hpTag = "InteractableHealthKit";
     const string ammoTag = "InteractableAmmo";
@@ -32,16 +33,22 @@ public class InteractSystem : MonoBehaviour
             if (hit.collider.CompareTag(hpTag))
             {
                 healthPickup = hit.collider.gameObject.GetComponent<HealthPickup>();
-                //interactText.text = "CHANGE TEXT IF NEEDDED";
                 InteractPopUp(true);
-
-                if(Input.GetKeyDown(interactKey))
+                interactText.text = "Press E to pickup health kit.";
+                if (Input.GetKeyDown(interactKey))
                     healthPickup.HealPickup();
-
-
-
-
             }
+
+            if (hit.collider.CompareTag(ammoTag))
+            {
+                handgunAmmoPickup = hit.collider.gameObject.GetComponent<HandgunAmmoPickup>();
+                 interactText.text = "Press E to pickup handgun ammo.";                
+                InteractPopUp(true);
+                if (Input.GetKeyDown(interactKey))
+                    handgunAmmoPickup.AmmoPickup();
+            }
+
+
         }
 
         else

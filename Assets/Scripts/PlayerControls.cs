@@ -132,11 +132,11 @@ public class PlayerControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H)){
             inventory = GetComponent<Inventory>(); //Refresh inventory
-            if (inventory.getHealthKits() > 0)
+            if (inventory.healthKits > 0)
             {
                 Heal(inventory.healthPickup.healAmount);
-                inventory.setHealthKits(inventory.getHealthKits() - 1);
-                GameUI.instance.UpdateHealthKitText(inventory.getHealthKits(), inventory.getHealthKitsMax());
+                inventory.useHealthKit();
+                GameUI.instance.UpdateHealthKitText(inventory.healthKits, inventory.healthKitsMax);
             }
             else
             {
