@@ -21,8 +21,7 @@ public class Gun : MonoBehaviour
             
         }
         if (Input.GetKeyDown(KeyCode.R))
-        {
-            
+        {    
             Reload();
         }
         
@@ -45,7 +44,18 @@ public class Gun : MonoBehaviour
 
     void Reload()
     {
-        currentAmmo = maxAmmoCapacity;
+        Inventory inventory = gameObject.GetComponent<Inventory>();
+        if(inventory.handgunAmmo < maxAmmoCapacity)
+        {
+            currentAmmo = inventory.handgunAmmo;
+            inventory.handgunAmmo = 0;
+        }
+        else
+        {
+            int ammoInMagzine = maxAmmoCapacity - currentAmmo;
+            currentAmmo = maxAmmoCapacity;
+            inventory.handgunAmmo -= ammoInMagzine;
+        }
         GameUI.instance.UpdateAmmoText(currentAmmo, maxAmmoCapacity);
     }
 }
