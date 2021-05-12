@@ -5,8 +5,6 @@ using TMPro;
 
 public class GameUI : MonoBehaviour
 {
-    //This is where inventory stuff is stored as well as UI representation of it
- 
     [Header("HUD")]
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI healthText;
@@ -14,11 +12,26 @@ public class GameUI : MonoBehaviour
 
     public static GameUI instance;
 
+    public bool GameIsPaused;
+    public GameObject InventoryMenu;
+
     void Awake()
     {
         instance = this;
+        GameIsPaused = false;
     }
-    
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (GameIsPaused)
+                Resume();
+            else
+                Pause();
+        }
+    }
+
     public void UpdateAmmoText(int currentAmmo, int maxAmmoCapacity)
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmoCapacity;
@@ -34,6 +47,21 @@ public class GameUI : MonoBehaviour
         healthKitText.text = "HealthKits: " + currentHealthKits + "/" + maxHealthKits;
     }
 
-   
+    void Resume()
+    {
+        InventoryMenu.SetActive(false);
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        GameIsPaused = false;
+
+    }
+    void Pause()
+    {
+        InventoryMenu.SetActive(true);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        GameIsPaused = true;
+    }
+
 
 }

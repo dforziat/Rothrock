@@ -14,17 +14,21 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Add a check for fireSpeed here as well, so player doesn't blast as a fast as they can click
-        if (Input.GetButtonDown("Fire1") && currentAmmo > 0)
+        if (GameUI.instance.GameIsPaused == true)
+            return;
+        else
         {
-            Shoot();
-            
+            // Add a check for fireSpeed here as well, so player doesn't blast as a fast as they can click
+            if (Input.GetButtonDown("Fire1") && currentAmmo > 0)
+            {
+                Shoot();
+
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reload();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {    
-            Reload();
-        }
-        
     }
 
 

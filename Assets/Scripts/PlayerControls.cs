@@ -55,11 +55,16 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        Gravity();
-        CamLook();
-        Movement();
-        Flashlight();
-        useHealthKit();
+        if (GameUI.instance.GameIsPaused == true)
+            return;
+        else
+        {
+            Gravity();
+            CamLook();
+            Movement();
+            Flashlight();
+            useHealthKit();
+        }
     }
 
     void Movement()
