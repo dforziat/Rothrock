@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
@@ -18,6 +19,10 @@ public class GameUI : MonoBehaviour
     public Inventory playerInventory;
 
     int curHealthKits;
+    [SerializeField] Image hp1;
+    [SerializeField] Image hp2;
+    [SerializeField] Image hp3;
+
 
     void Awake()
     {
@@ -28,9 +33,7 @@ public class GameUI : MonoBehaviour
     void Update()
     {
         TogglePause();
-
-        //UpdateInventory(); can we integrate this into the other methods?
-
+        UpdateInventory();
     }
 
     public void UpdateAmmoText(int currentAmmo, int maxAmmoCapacity)
@@ -77,10 +80,38 @@ public class GameUI : MonoBehaviour
 
     void UpdateInventory()
     {
-        //get curHealthkits
-        curHealthKits = playerInventory.healthKits;
+        //this is some real jank shit wtf im better than this - but it works?
+        if (GameIsPaused == true)
+        {
+            curHealthKits = playerInventory.healthKits;
 
-        //get cur ammo
+            if (curHealthKits == 1)
+            {
+                hp1.enabled = true;
+                hp2.enabled = false;
+                hp3.enabled = false;
+            }
+            else if (curHealthKits == 2)
+            {
+                hp1.enabled = true;
+                hp2.enabled = true;
+                hp3.enabled = false;
+            }
+            else if (curHealthKits == 3)
+            {
+                hp1.enabled = true;
+                hp2.enabled = true;
+                hp3.enabled = true;
+            }
+            else
+            {
+                hp1.enabled = false;
+                hp2.enabled = false;
+                hp3.enabled = false;
+            }
+        }
+        else
+            return;
     }
 
 }

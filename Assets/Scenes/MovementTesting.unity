@@ -1200,6 +1200,9 @@ MonoBehaviour:
   GameIsPaused: 0
   InventoryMenu: {fileID: 451898500}
   playerInventory: {fileID: 1466889163}
+  hp1: {fileID: 1111687214}
+  hp2: {fileID: 1556169379}
+  hp3: {fileID: 1406817905}
 --- !u!1 &528683216
 GameObject:
   m_ObjectHideFlags: 0
