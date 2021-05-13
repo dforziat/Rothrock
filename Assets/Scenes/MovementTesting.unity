@@ -1199,6 +1199,7 @@ MonoBehaviour:
   healthKitText: {fileID: 616099621}
   GameIsPaused: 0
   InventoryMenu: {fileID: 451898500}
+  playerInventory: {fileID: 1466889163}
 --- !u!1 &528683216
 GameObject:
   m_ObjectHideFlags: 0

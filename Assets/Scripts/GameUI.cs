@@ -15,6 +15,10 @@ public class GameUI : MonoBehaviour
     public bool GameIsPaused;
     public GameObject InventoryMenu;
 
+    public Inventory playerInventory;
+
+    int curHealthKits;
+
     void Awake()
     {
         instance = this;
@@ -23,13 +27,10 @@ public class GameUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (GameIsPaused)
-                Resume();
-            else
-                Pause();
-        }
+        TogglePause();
+
+        //UpdateInventory(); can we integrate this into the other methods?
+
     }
 
     public void UpdateAmmoText(int currentAmmo, int maxAmmoCapacity)
@@ -63,5 +64,23 @@ public class GameUI : MonoBehaviour
         GameIsPaused = true;
     }
 
+    void TogglePause()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (GameIsPaused)
+                Resume();
+            else
+                Pause();
+        }
+    }
+
+    void UpdateInventory()
+    {
+        //get curHealthkits
+        curHealthKits = playerInventory.healthKits;
+
+        //get cur ammo
+    }
 
 }
