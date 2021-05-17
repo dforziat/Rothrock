@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // Start is called before the first frame update
+ 
     [Header("Inventory")]
     [SerializeField] public int healthKits = 0;
      public int healthKitsMax = 3;
-    [SerializeField] public int handgunAmmo = 10;
-    public int handgunAmmoMax = 20;
+    [SerializeField] public int handgunAmmo = 6;
+    public int handgunAmmoMax = 36;
     public HealthPickup healthPickup; 
 
     void Start()
