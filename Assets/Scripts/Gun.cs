@@ -6,8 +6,12 @@ public class Gun : MonoBehaviour
 {
     float damage = 1f;
     float range = 100f;
-    public int maxAmmoCapacity = 6;
-    public int currentAmmo = 6;
+    public int maxMagazineCapacity = 6;
+    public int currentMagazineAmmo = 6;
+
+    private const string IDLE_STATE = "Idle";
+    private const string SHOOTING_STATE = "Shooting";
+    private const string RELOAD_STATE = "Reload";
 
     [SerializeField] Camera cam;
 
@@ -27,16 +31,19 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         // Add a check for fireSpeed here as well, so player doesn't blast as a fast as they can click
-        if (Input.GetButtonDown("Fire1") && currentAmmo > 0)
+        bool isIdle = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(IDLE_STATE);
+        if (Input.GetButtonDown("Fire1") && currentMagazineAmmo > 0 && isIdle)
         {
+            GetComponent<Animator>().SetTrigger("shoot");
+            GetComponent<AudioSource>().Play();
             RaycastHit hit;
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
             {
                 Debug.Log("shoot");
                 Debug.Log(hit.transform.name);
             }
-            currentAmmo--;
-            GameUI.instance.UpdateAmmoText(currentAmmo, maxAmmoCapacity);
+            currentMagazineAmmo--;
+            GameUI.instance.UpdateAmmoText(currentMagazineAmmo, maxMagazineCapacity);
         }
 
     }
@@ -45,19 +52,20 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Inventory inventory = gameObject.GetComponent<Inventory>();
-            if (inventory.handgunAmmo < maxAmmoCapacity)
+            GetComponent<Animator>().SetTrigger("reload");
+            Inventory inventory = GameObject.FindWithTag("Player").GetComponent<Inventory>();
+            if (inventory.handgunAmmo < maxMagazineCapacity)
             {
-                currentAmmo = inventory.handgunAmmo;
+                currentMagazineAmmo = inventory.handgunAmmo;
                 inventory.handgunAmmo = 0;
             }
             else
             {
-                int ammoInMagzine = maxAmmoCapacity - currentAmmo;
-                currentAmmo = maxAmmoCapacity;
+                int ammoInMagzine = maxMagazineCapacity - currentMagazineAmmo;
+                currentMagazineAmmo = maxMagazineCapacity;
                 inventory.handgunAmmo -= ammoInMagzine;
             }
-            GameUI.instance.UpdateAmmoText(currentAmmo, maxAmmoCapacity);
+            GameUI.instance.UpdateAmmoText(currentMagazineAmmo, maxMagazineCapacity);
         }
     }
 }

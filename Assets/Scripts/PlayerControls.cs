@@ -39,7 +39,7 @@ public class PlayerControls : MonoBehaviour
     {
         // get the components
         cam = Camera.main;
-        gun = GetComponent<Gun>();
+        gun = GetComponentInChildren<Gun>();
         inventory = GetComponent<Inventory>();
 
         //disable cursor
@@ -49,7 +49,7 @@ public class PlayerControls : MonoBehaviour
         flashlight.SetActive(flashlightToggle);
 
         //initialize UI
-        GameUI.instance.UpdateAmmoText(gun.currentAmmo, gun.maxAmmoCapacity);
+        GameUI.instance.UpdateAmmoText(gun.currentMagazineAmmo, gun.maxMagazineCapacity);
         GameUI.instance.UpdateHealthText(curHp, maxHp);
     }
 
