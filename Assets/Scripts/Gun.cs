@@ -13,6 +13,14 @@ public class Gun : MonoBehaviour
     private const string SHOOTING_STATE = "Shooting";
     private const string RELOAD_STATE = "Reload";
 
+
+    [SerializeField]
+    private AudioClip shootSFX;
+
+    [SerializeField]
+    private AudioClip reloadSFX;
+
+
     [SerializeField] Camera cam;
 
     
@@ -35,7 +43,7 @@ public class Gun : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && currentMagazineAmmo > 0 && isIdle)
         {
             GetComponent<Animator>().SetTrigger("shoot");
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().PlayOneShot(shootSFX);
             RaycastHit hit;
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
             {
@@ -50,8 +58,10 @@ public class Gun : MonoBehaviour
 
     void Reload()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        bool isIdle = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(IDLE_STATE);
+        if (Input.GetKeyDown(KeyCode.R) && isIdle)
         {
+            GetComponent<AudioSource>().PlayOneShot(reloadSFX);
             GetComponent<Animator>().SetTrigger("reload");
             Inventory inventory = GameObject.FindWithTag("Player").GetComponent<Inventory>();
             if (inventory.handgunAmmo < maxMagazineCapacity)

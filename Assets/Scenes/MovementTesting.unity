@@ -531,6 +531,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMagazineCapacity: 6
   currentMagazineAmmo: 6
+  shootSFX: {fileID: 8300000, guid: 49ffe03b727e4e24e89f7a4eb9343115, type: 3}
+  reloadSFX: {fileID: 8300000, guid: 880aeac283ca50c42843a49ae5b30ff0, type: 3}
   cam: {fileID: 1268638771}
 --- !u!82 &135079013
 AudioSource:
@@ -542,7 +544,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 49ffe03b727e4e24e89f7a4eb9343115, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2862,6 +2864,7 @@ GameObject:
   - component: {fileID: 1466889159}
   - component: {fileID: 1466889161}
   - component: {fileID: 1466889163}
+  - component: {fileID: 1466889162}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2926,6 +2929,25 @@ MonoBehaviour:
   controller: {fileID: 1466889159}
   flashlight: {fileID: 608115823}
   dir: {x: 0, y: 0, z: 0}
+--- !u!95 &1466889162
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466889158}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 63f10da5a38cb8e478d01fed328a78e1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1466889163
 MonoBehaviour:
   m_ObjectHideFlags: 0
