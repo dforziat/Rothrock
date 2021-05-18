@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed;
+    float moveSpeed = 5;
 
     [Header("Gravity")]
     float grav = -18f;
@@ -20,41 +20,65 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float minLookX;
     float rotX;
 
+    [Header("Stats")]
+    int curHp = 50;
+    int maxHp = 100;
+
     Camera cam;
+    Gun gun;
+    Inventory inventory;
+
     Vector3 vel;
     [SerializeField] CharacterController controller;
+    public GameObject flashlight;
+    bool flashlightToggle = false;
 
+    public Vector3 dir;
 
     void Awake()
     {
-        // get the camera
+        // get the components
         cam = Camera.main;
+        gun = GetComponentInChildren<Gun>();
+        inventory = GetComponent<Inventory>();
 
         //disable cursor
         Cursor.lockState = CursorLockMode.Locked;
+
+        //starts game with flashlight off
+        flashlight.SetActive(flashlightToggle);
+
+        //initialize UI
+        GameUI.instance.UpdateAmmoText(gun.currentMagazineAmmo, gun.maxMagazineCapacity);
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
     }
 
     void Update()
     {
-        Gravity();
-        CamLook();
-        Movement();
-        
+        if (GameUI.instance.GameIsPaused == true)
+            return;
+        else
+        {
+            Gravity();
+            CamLook();
+            Movement();
+            Flashlight();
+            useHealthKit();
+        }
     }
 
     void Movement()
     {
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
             moveSpeed = 0f;
         else if (Input.GetKey(KeyCode.LeftShift))
             moveSpeed = 20f;
         else
             moveSpeed = 5f;
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 dir = (transform.right * x + transform.forward * z);
-        //need to normalize the vector3 but curently it makes you slide too long if you it
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+        Vector3 dir = (transform.right * x + transform.forward * z).normalized;
         controller.Move(dir * moveSpeed * Time.deltaTime);
     }
 
@@ -78,7 +102,53 @@ public class PlayerControls : MonoBehaviour
             vel.y = -2f;
     }
 
+    void Flashlight()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            flashlightToggle = !flashlightToggle;
+            flashlight.SetActive(flashlightToggle);
+            // Add a cooldown speed here 
+        }
+    }
 
+    public void TakeDamage(int damage)
+    {
+        curHp -= damage;
+        if (curHp <= 0)
+            Debug.Log("dead");
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (curHp + healAmount > maxHp)
+        {
+            curHp = maxHp;
+        }
+        else
+        {
+            curHp += healAmount;
+        }
+        GameUI.instance.UpdateHealthText(curHp, maxHp);
+    }
+
+    public void useHealthKit()
+    {
+        if (Input.GetKeyDown(KeyCode.H)){
+            inventory = GetComponent<Inventory>(); //Refresh inventory
+            if (inventory.healthKits > 0)
+            {
+                Heal(inventory.healthPickup.healAmount);
+                inventory.useHealthKit();
+                GameUI.instance.UpdateHealthKitText(inventory.healthKits, inventory.healthKitsMax);
+            }
+            else
+            {
+                Debug.Log("No health kits");
+            }
+        }
+    }
 
 
 }

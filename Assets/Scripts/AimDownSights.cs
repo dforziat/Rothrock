@@ -18,7 +18,6 @@ public class AimDownSights : MonoBehaviour
         else
         {
             transform.localPosition = Vector3.Slerp(transform.localPosition, hipFire, aimSpeed * Time.deltaTime);
-
         }
     }
 }
