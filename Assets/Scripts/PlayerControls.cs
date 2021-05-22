@@ -27,6 +27,7 @@ public class PlayerControls : MonoBehaviour
     Camera cam;
     Gun gun;
     Inventory inventory;
+    Animator animator;
 
     Vector3 vel;
     [SerializeField] CharacterController controller;
@@ -41,6 +42,7 @@ public class PlayerControls : MonoBehaviour
         cam = Camera.main;
         gun = GetComponentInChildren<Gun>();
         inventory = GetComponent<Inventory>();
+        animator = GetComponent<Animator>();
 
         //disable cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -70,11 +72,19 @@ public class PlayerControls : MonoBehaviour
     void Movement()
     {
         if (Input.GetMouseButton(1))
+        {
             moveSpeed = 0f;
+        }
         else if (Input.GetKey(KeyCode.LeftShift))
+        {
+            animator.SetBool("sprint", true);
             moveSpeed = 20f;
+        }
         else
+        {
+            animator.SetBool("sprint", false);
             moveSpeed = 5f;
+        }
 
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
