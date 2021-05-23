@@ -36,6 +36,10 @@ public class PlayerControls : MonoBehaviour
 
     public Vector3 dir;
 
+    [Header("Animation States")]
+    const string WALK_STATE = "Walk";
+    const string ADS_STATE = "ADS";
+
     void Awake()
     {
         // get the components
@@ -66,6 +70,7 @@ public class PlayerControls : MonoBehaviour
             Movement();
             Flashlight();
             useHealthKit();
+            shootGun();
         }
     }
 
@@ -157,6 +162,17 @@ public class PlayerControls : MonoBehaviour
             {
                 Debug.Log("No health kits");
             }
+        }
+    }
+
+    public void shootGun()
+    {
+       bool isWalkState = animator.GetCurrentAnimatorStateInfo(0).IsName(WALK_STATE);
+       bool isADSState = animator.GetCurrentAnimatorStateInfo(0).IsName(ADS_STATE);
+        if (Input.GetButtonDown("Fire1") && (isWalkState || isADSState))
+        {
+            Debug.Log("Player class shoot button triggered");
+            gun.Shoot();
         }
     }
 

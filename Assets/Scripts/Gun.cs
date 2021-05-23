@@ -30,17 +30,16 @@ public class Gun : MonoBehaviour
             return;
         else
         {
-            Shoot();
+            //Shoot();
             Reload();
         }
     }
 
 
-    void Shoot()
+    public void Shoot()
     {
-        // Add a check for fireSpeed here as well, so player doesn't blast as a fast as they can click
         bool isIdle = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(IDLE_STATE);
-        if (Input.GetButtonDown("Fire1") && currentMagazineAmmo > 0 && isIdle)
+        if (currentMagazineAmmo > 0 && isIdle)
         {
             GetComponent<Animator>().SetTrigger("shoot");
             GetComponent<AudioSource>().PlayOneShot(shootSFX);
