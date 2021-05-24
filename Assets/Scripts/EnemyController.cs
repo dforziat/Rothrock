@@ -15,7 +15,10 @@ public class EnemyController : MonoBehaviour
     public float attackRange;
     public float yPathOffset;
 
-    [SerializeField] float aggroDistance = 15;
+    [SerializeField] float aggroDistance = 20;
+    [SerializeField] float aggroDistanceMax = 30;
+    bool aggroToggle;
+    float distToPlayer;
 
     // TODO: add "weapon" = hands essentially
 
@@ -32,25 +35,21 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-
-        float distToPlayer = Vector3.Distance(transform.position, target.transform.position);
-
-        if(distToPlayer <= aggroDistance)
-        {
-            ChaseTarget();
-        }
-
-        //look at target
-        Vector3 dir = (target.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-        transform.eulerAngles = Vector3.up * angle;
-
+        AggroCheck();
+        ChaseTarget();
     }
 
     void ChaseTarget()
     {
-        navMeshAgent.SetDestination(target.transform.position);
+        if (aggroToggle == true)
+        {
+            navMeshAgent.SetDestination(target.transform.position);
+
+            //look at target
+            Vector3 dir = (target.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+            transform.eulerAngles = Vector3.up * angle;
+        }
     }
 
 
@@ -65,4 +64,21 @@ public class EnemyController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    void AggroCheck()
+    {
+        distToPlayer = Vector3.Distance(transform.position, target.transform.position);
+
+        if (distToPlayer <= aggroDistance)
+        {
+            aggroToggle = true;
+        }
+
+        if (aggroToggle == true && distToPlayer > aggroDistanceMax)
+        {
+            aggroToggle = false;
+        }
+
+    }
+
 }
