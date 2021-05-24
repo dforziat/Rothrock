@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    float damage = 1f;
+    int damage = 1;
     float range = 100f;
     public int maxMagazineCapacity = 6;
     public int currentMagazineAmmo = 6;
@@ -30,7 +30,6 @@ public class Gun : MonoBehaviour
             return;
         else
         {
-            //Shoot();
             Reload();
         }
     }
@@ -48,6 +47,10 @@ public class Gun : MonoBehaviour
             {
                 Debug.Log("shoot");
                 Debug.Log(hit.transform.name);
+                EnemyController enemy = hit.transform.GetComponent<EnemyController>();
+                if (enemy != null) { 
+                    enemy.TakeDamage(damage);
+                 }
             }
             currentMagazineAmmo--;
             GameUI.instance.UpdateAmmoText(currentMagazineAmmo, maxMagazineCapacity);

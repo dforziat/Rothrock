@@ -71,6 +71,7 @@ public class PlayerControls : MonoBehaviour
             Flashlight();
             useHealthKit();
             shootGun();
+            aimDownSights();
         }
     }
 
@@ -171,8 +172,20 @@ public class PlayerControls : MonoBehaviour
        bool isADSState = animator.GetCurrentAnimatorStateInfo(0).IsName(ADS_STATE);
         if (Input.GetButtonDown("Fire1") && (isWalkState || isADSState))
         {
-            Debug.Log("Player class shoot button triggered");
             gun.Shoot();
+        }
+    }
+
+    public void aimDownSights()
+    {
+        bool isWalkState = animator.GetCurrentAnimatorStateInfo(0).IsName(WALK_STATE);
+        if(Input.GetMouseButton(1) && isWalkState)
+        {
+            gun.GetComponent<AimDownSights>().aimDownSights();
+        }
+        else
+        {
+            gun.GetComponent<AimDownSights>().returnToHip();
         }
     }
 

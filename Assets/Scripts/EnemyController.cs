@@ -7,15 +7,15 @@ using System.Linq;
 public class EnemyController : MonoBehaviour
 {
     [Header("Stats")]
-    public int curHp;
-    public int maxHp;
+    public int curHp = 5;
+    public int maxHp = 5;
 
     [Header("Movement")]
     public float moveSpeed;
     public float attackRange;
     public float yPathOffset;
 
-    private List<Vector3> path;
+    [SerializeField] float aggroDistance = 15;
 
     // TODO: add "weapon" = hands essentially
 
@@ -28,20 +28,14 @@ public class EnemyController : MonoBehaviour
         // weapon = GetComponent<Weapon>();
         target = GameObject.FindWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
-        InvokeRepeating("UpdatePath", 0.0f, .5f);
     }
 
     void Update()
     {
 
-        float dist = Vector3.Distance(transform.position, target.transform.position);
+        float distToPlayer = Vector3.Distance(transform.position, target.transform.position);
 
-        if (dist <= attackRange)
-        {
-           // if (weapon.CanShoot())
-              //  weapon.shoot();
-        }
-        else
+        if(distToPlayer <= aggroDistance)
         {
             ChaseTarget();
         }
@@ -60,17 +54,6 @@ public class EnemyController : MonoBehaviour
     }
 
 
-
-    void UpdatePath()
-    {
-        //calc path to target
-        NavMeshPath navMeshPath = new NavMeshPath();
-        NavMesh.CalculatePath(transform.position, target.transform.position, NavMesh.AllAreas, navMeshPath);
-
-        //saving as a list
-        path = navMeshPath.corners.ToList();
-    }
-
     public void TakeDamage(int damage)
     {
         curHp -= damage;
@@ -81,6 +64,5 @@ public class EnemyController : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
-
     }
 }

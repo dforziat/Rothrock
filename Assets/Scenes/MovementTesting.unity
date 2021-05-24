@@ -331,7 +331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &41831617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,11 +344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b21bb0bea23a114fa8f084bdd32f26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curHp: 0
-  maxHp: 0
+  curHp: 5
+  maxHp: 5
   moveSpeed: 1
   attackRange: 0
   yPathOffset: 0
+  aggroDistance: 3
 --- !u!136 &41831618
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -420,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41831616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.48, y: 2.03, z: 15.8}
+  m_LocalPosition: {x: -3.48, y: 2.03, z: 40.94}
   m_LocalScale: {x: 1, y: 1.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

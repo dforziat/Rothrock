@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\HandgunAmmoPickup.cs" />
     <Compile Include="Assets\Scripts\HeadBobbing.cs" />
+    <Compile Include="Assets\Unity Store Assets\Reichsrevolver_M1879\Scripts\RevolverController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
