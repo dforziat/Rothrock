@@ -153,7 +153,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H)){
             inventory = GetComponent<Inventory>(); //Refresh inventory
-            if (inventory.healthKits > 0)
+            if (inventory.healthKits > 0 && curHp < maxHp)
             {
                 Heal(inventory.healthPickup.healAmount);
                 inventory.useHealthKit();

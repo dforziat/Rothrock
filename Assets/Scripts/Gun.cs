@@ -61,7 +61,7 @@ public class Gun : MonoBehaviour
     void Reload()
     {
         bool isIdle = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(IDLE_STATE);
-        if (Input.GetKeyDown(KeyCode.R) && isIdle)
+        if (Input.GetKeyDown(KeyCode.R) && isIdle && currentMagazineAmmo < maxMagazineCapacity)
         {
             GetComponent<AudioSource>().PlayOneShot(reloadSFX);
             GetComponent<Animator>().SetTrigger("reload");

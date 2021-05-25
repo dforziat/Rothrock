@@ -16,11 +16,11 @@ public class AimDownSights : MonoBehaviour
 
     public void aimDownSights()
     {
-        transform.localPosition = Vector3.Slerp(transform.localPosition, aimDownSight, aimSpeed * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, aimDownSight, aimSpeed * Time.deltaTime);
     }
 
     public void returnToHip()
     {
-        transform.localPosition = Vector3.Slerp(transform.localPosition, hipFire, aimSpeed * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, hipFire, aimSpeed * Time.deltaTime);
     }
 }

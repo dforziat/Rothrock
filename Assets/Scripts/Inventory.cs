@@ -14,7 +14,6 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        healthPickup = new HealthPickup();
     }
 
     // Update is called once per frame
