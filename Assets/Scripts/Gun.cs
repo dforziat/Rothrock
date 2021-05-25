@@ -13,6 +13,10 @@ public class Gun : MonoBehaviour
     private const string SHOOTING_STATE = "Shooting";
     private const string RELOAD_STATE = "Reload";
 
+    [SerializeField] Vector3 aimDownSight;
+    [SerializeField] Vector3 hipFire;
+    float aimSpeed = 20;
+
 
     [SerializeField]
     private AudioClip shootSFX;
@@ -79,5 +83,15 @@ public class Gun : MonoBehaviour
             }
             GameUI.instance.UpdateAmmoText(currentMagazineAmmo, maxMagazineCapacity);
         }
+    }
+
+    public void aimDownSights()
+    {
+        transform.localPosition = Vector3.Slerp(transform.localPosition, aimDownSight, aimSpeed * Time.deltaTime);
+    }
+
+    public void returnToHip()
+    {
+        transform.localPosition = Vector3.Slerp(transform.localPosition, hipFire, aimSpeed * Time.deltaTime);
     }
 }

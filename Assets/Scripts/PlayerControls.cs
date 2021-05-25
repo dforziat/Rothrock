@@ -181,11 +181,11 @@ public class PlayerControls : MonoBehaviour
         bool isWalkState = animator.GetCurrentAnimatorStateInfo(0).IsName(WALK_STATE);
         if(Input.GetMouseButton(1) && isWalkState)
         {
-            gun.GetComponent<AimDownSights>().aimDownSights();
+            gun.aimDownSights();
         }
         else
         {
-            gun.GetComponent<AimDownSights>().returnToHip();
+            gun.returnToHip();
         }
     }
 
