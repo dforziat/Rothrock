@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     float rotX;
 
     [Header("Stats")]
-    int curHp = 50;
+    [SerializeField] int curHp = 50;
     int maxHp = 100;
 
     Camera cam;
@@ -131,8 +131,9 @@ public class PlayerControls : MonoBehaviour
     public void TakeDamage(int damage)
     {
         curHp -= damage;
-        if (curHp <= 0)
-            Debug.Log("dead");
+        if (curHp <= 0) { 
+        GetComponent<DeathHandler>().HandleDeath();
+        }
         GameUI.instance.UpdateHealthText(curHp, maxHp);
     }
 
