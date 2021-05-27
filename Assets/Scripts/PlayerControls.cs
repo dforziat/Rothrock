@@ -72,6 +72,7 @@ public class PlayerControls : MonoBehaviour
             useHealthKit();
             shootGun();
             aimDownSights();
+            DebugTakeDamage();
         }
     }
 
@@ -187,6 +188,14 @@ public class PlayerControls : MonoBehaviour
         else
         {
             gun.returnToHip();
+        }
+    }
+
+    public void DebugTakeDamage()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            TakeDamage(100);
         }
     }
 
