@@ -346,11 +346,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHp: 5
   maxHp: 5
+  damage: 5
   moveSpeed: 1
-  attackRange: 0
   yPathOffset: 0
   aggroDistance: 20
   aggroDistanceMax: 30
+  playerControls: {fileID: 1466889161}
 --- !u!136 &41831618
 CapsuleCollider:
   m_ObjectHideFlags: 0

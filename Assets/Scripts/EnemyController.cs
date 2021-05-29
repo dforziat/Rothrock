@@ -9,10 +9,12 @@ public class EnemyController : MonoBehaviour
     [Header("Stats")]
     public int curHp = 5;
     public int maxHp = 5;
+    int stopDist = 2;
+    [SerializeField] int damage = 5;
 
     [Header("Movement")]
     public float moveSpeed;
-    public float attackRange;
+    float attackRange = 3;
     public float yPathOffset;
 
     [SerializeField] float aggroDistance = 20;
@@ -20,15 +22,15 @@ public class EnemyController : MonoBehaviour
     bool aggroToggle;
     float distToPlayer;
 
-    // TODO: add "weapon" = hands essentially
+    
 
     private GameObject target;
-    private NavMeshAgent navMeshAgent; 
+    private NavMeshAgent navMeshAgent;
+
+    public PlayerControls playerControls;
 
     void Start()
     {
-        // get the compnents
-        // weapon = GetComponent<Weapon>();
         target = GameObject.FindWithTag("Player");
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -37,6 +39,7 @@ public class EnemyController : MonoBehaviour
     {
         AggroCheck();
         ChaseTarget();
+        Attack();
     }
 
     void ChaseTarget()
@@ -60,6 +63,15 @@ public class EnemyController : MonoBehaviour
             Die();
     }
 
+    void Attack()
+    {
+        if (distToPlayer <= attackRange)
+        {
+            //needs 'downtime" like gunshot, can we do animation to do that?
+            playerControls.TakeDamage(damage);
+        }
+    }
+
     void Die()
     {
         Destroy(gameObject);
@@ -69,12 +81,12 @@ public class EnemyController : MonoBehaviour
     {
         distToPlayer = Vector3.Distance(transform.position, target.transform.position);
 
-        if (distToPlayer <= aggroDistance)
+        if ((distToPlayer <= aggroDistance) && (distToPlayer > stopDist))
         {
             aggroToggle = true;
         }
 
-        if (aggroToggle == true && distToPlayer > aggroDistanceMax)
+        if (aggroToggle == true && ((distToPlayer > aggroDistanceMax) || (distToPlayer < stopDist)))
         {
             aggroToggle = false;
         }
