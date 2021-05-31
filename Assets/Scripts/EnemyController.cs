@@ -47,6 +47,7 @@ public class EnemyController : MonoBehaviour
         if (aggroToggle == true)
         {
             navMeshAgent.SetDestination(target.transform.position);
+            GetComponent<Animator>().SetBool("chase", true);
 
             //look at target
             Vector3 dir = (target.transform.position - transform.position).normalized;
@@ -67,14 +68,18 @@ public class EnemyController : MonoBehaviour
     {
         if (distToPlayer <= attackRange)
         {
-            //needs 'downtime" like gunshot, can we do animation to do that?
-            playerControls.TakeDamage(damage);
+            bool isChase = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Chase");
+            if (isChase) {
+                GetComponent<Animator>().SetTrigger("attack");
+                //playerControls.TakeDamage(damage);
+            }
         }
     }
 
     void Die()
     {
-        Destroy(gameObject);
+        GetComponent<Animator>().SetTrigger("death");
+       // Destroy(gameObject);
     }
 
     void AggroCheck()
@@ -89,6 +94,7 @@ public class EnemyController : MonoBehaviour
         if (aggroToggle == true && ((distToPlayer > aggroDistanceMax) || (distToPlayer < stopDist)))
         {
             aggroToggle = false;
+            GetComponent<Animator>().SetBool("chase", false);
         }
 
     }
