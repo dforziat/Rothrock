@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float aggroDistanceMax = 30;
     bool aggroToggle;
     float distToPlayer;
+    bool isDead;
 
     
 
@@ -37,13 +38,17 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        AggroCheck();
-        ChaseTarget();
-        Attack();
+        if (!isDead)
+        {
+            AggroCheck();
+            ChaseTarget();
+            Attack();
+        }
     }
 
     void ChaseTarget()
     {
+        bool isIdle = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle");
         if (aggroToggle == true)
         {
             navMeshAgent.SetDestination(target.transform.position);
@@ -70,16 +75,20 @@ public class EnemyController : MonoBehaviour
         {
             bool isChase = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Chase");
             if (isChase) {
+                playerControls.TakeDamage(damage);
                 GetComponent<Animator>().SetTrigger("attack");
-                //playerControls.TakeDamage(damage);
             }
         }
     }
 
     void Die()
     {
+        if (isDead)
+        {
+            return;
+        }
+        isDead = true;
         GetComponent<Animator>().SetTrigger("death");
-       // Destroy(gameObject);
     }
 
     void AggroCheck()

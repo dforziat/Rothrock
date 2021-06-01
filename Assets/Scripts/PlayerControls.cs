@@ -131,6 +131,7 @@ public class PlayerControls : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Player is taking " + damage);
         curHp -= damage;
         if (curHp <= 0) { 
         GetComponent<DeathHandler>().HandleDeath();
