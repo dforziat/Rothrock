@@ -541,6 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMagazineCapacity: 6
   currentMagazineAmmo: 6
+  hitEffect: {fileID: 1096893136476370, guid: 9cae1f4d148c4c2409dba46f87abcf50, type: 3}
   aimDownSight: {x: -0.405, y: 0.137, z: 0}
   hipFire: {x: 0, y: 0, z: 0}
   shootSFX: {fileID: 8300000, guid: 49ffe03b727e4e24e89f7a4eb9343115, type: 3}

@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour
     public int maxMagazineCapacity = 6;
     public int currentMagazineAmmo = 6;
 
+    [SerializeField] GameObject hitEffect;
+
     private const string IDLE_STATE = "Idle";
     private const string SHOOTING_STATE = "Shooting";
     private const string RELOAD_STATE = "Reload";
@@ -51,6 +53,7 @@ public class Gun : MonoBehaviour
             {
                 Debug.Log("shoot");
                 Debug.Log(hit.transform.name);
+                CreateHitImpact(hit);
                 EnemyController enemy = hit.transform.GetComponent<EnemyController>();
                 if (enemy != null) { 
                     enemy.TakeDamage(damage);
@@ -93,5 +96,11 @@ public class Gun : MonoBehaviour
     public void returnToHip()
     {
         transform.localPosition = Vector3.Slerp(transform.localPosition, hipFire, aimSpeed * Time.deltaTime);
+    }
+
+    public void CreateHitImpact(RaycastHit hit)
+    {
+       GameObject impact = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(impact, 1);
     }
 }

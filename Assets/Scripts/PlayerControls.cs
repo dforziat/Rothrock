@@ -84,11 +84,13 @@ public class PlayerControls : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftShift))
         {
+            gun.GetComponent<Animator>().SetBool("sprint", true);
             animator.SetBool("sprint", true);
             moveSpeed = 20f;
         }
         else
         {
+            gun.GetComponent<Animator>().SetBool("sprint", false);
             animator.SetBool("sprint", false);
             moveSpeed = 5f;
         }
